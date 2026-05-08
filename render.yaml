@@ -1,0 +1,23 @@
+services:
+  - type: web
+    name: tecxo-ads-bot
+    runtime: python
+    plan: free
+    region: oregon
+    branch: main
+    buildCommand: pip install -r requirements.txt
+    startCommand: python bot.py
+    healthCheckPath: /
+    envVars:
+      - key: API_ID
+        sync: false
+      - key: API_HASH
+        sync: false
+      - key: BOT_TOKEN
+        sync: false
+      - key: LOGS_BOT_TOKEN
+        sync: false
+      - key: DATA_DIR
+        value: /tmp
+      - key: PYTHON_VERSION
+        value: 3.11.9
