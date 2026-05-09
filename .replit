@@ -1,0 +1,14 @@
+run = "bash run.sh"
+entrypoint = "bot.py"
+modules = ["python-3.11"]
+
+[nix]
+channel = "stable-23_11"
+
+[deployment]
+run = ["bash", "run.sh"]
+deploymentTarget = "cloudrun"
+
+[[ports]]
+localPort = 8080
+externalPort = 80

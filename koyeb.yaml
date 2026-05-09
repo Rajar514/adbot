@@ -1,0 +1,24 @@
+# Koyeb config — FREE tier (Nano instance, always-on, no sleep)
+# Deploy via Koyeb dashboard: New Service → GitHub → select repo
+# OR via CLI: koyeb app init tecxo-ads-bot --git github.com/USER/REPO --git-branch main
+service:
+  name: tecxo-ads-bot
+  type: web
+  instance_type: free            # FREE Nano (512MB RAM, 0.1 vCPU)
+  regions:
+    - fra                        # frankfurt (or was, sin, par)
+  ports:
+    - port: 8080
+      protocol: http
+  health_checks:
+    - http:
+        port: 8080
+        path: /
+  env:
+    - name: DATA_DIR
+      value: /data
+    - name: PORT
+      value: "8080"
+  # Koyeb free tier does NOT support persistent volumes.
+  # Sessions will be re-required after each redeploy.
+  # For persistence on free tier, use Fly.io instead (has free volume).

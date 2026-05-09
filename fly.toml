@@ -1,0 +1,28 @@
+# Fly.io config — FREE tier (shared-cpu-1x, 256MB)
+# Deploy: flyctl launch --no-deploy  then  flyctl deploy
+app = "tecxo-ads-bot"
+primary_region = "sin"   # Singapore (change to your nearest: bom, fra, iad, sin)
+
+[build]
+  dockerfile = "Dockerfile"
+
+[env]
+  DATA_DIR = "/data"
+  PORT = "8080"
+
+# Persistent volume for sessions + sqlite db
+[mounts]
+  source = "tecxo_data"
+  destination = "/data"
+
+[http_service]
+  internal_port = 8080
+  force_https = true
+  auto_stop_machines = false   # keep always-on (free tier allows 3 small machines)
+  auto_start_machines = true
+  min_machines_running = 1
+
+[[vm]]
+  cpu_kind = "shared"
+  cpus = 1
+  memory_mb = 256
